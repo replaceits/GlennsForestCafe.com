@@ -38,7 +38,7 @@
                     ?>
                         <li>
                             <a href="orders/">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<?php echo($_SESSION['firstName'] . $_SESSION['lastName']); ?>
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<?php echo($_SESSION['firstName'] . " " . $_SESSION['lastName']); ?>
                             </a>
                         </li>
                     <?php

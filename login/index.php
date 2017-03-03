@@ -120,7 +120,7 @@
                 }
 
                 if( isset($_POST['lastName']) && !empty($_POST['lastName']) ){
-                    $firstNameSet = true;
+                    $lastNameSet = true;
 
                     $lastName = $_POST['lastName'];
                     if( strlen($lastName) <= 255 ){
@@ -158,44 +158,46 @@
                     }
                     $mysqli_con->close();
 
-                    $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
+                    if( !$duplicateEmail ){
+                        $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
 
-                    if(!mysqli_connect_errno()){
-                        $valid_database = true;
+                        if(!mysqli_connect_errno()){
+                            $valid_database = true;
 
-                        $sql = "INSERT INTO users(user_first_name, user_last_name, user_email, user_password_hash) VALUES(?,?,?,?);";
+                            $sql = "INSERT INTO users(user_first_name, user_last_name, user_email, user_password_hash) VALUES(?,?,?,?);";
 
-                        if($stmt = $mysqli_con->prepare($sql)){
-                            $stmt->bind_param('ssss',$firstName,$lastName,$email,$passwordHash);
-                            $stmt->execute();
-                            $stmt->store_result();
-                            
-                            if($stmt->affected_rows >= 1){
-                                $invalidRegistration = false;
-                                $_SESSION['email'] = stripslashes(
-                                                        htmlspecialchars(
-                                                            trim($email)));
-                                $_SESSION['loggedIn'] = true;
-                                $_SESSION['firstName'] = stripslashes(
+                            if($stmt = $mysqli_con->prepare($sql)){
+                                $stmt->bind_param('ssss',$firstName,$lastName,$email,$passwordHash);
+                                $stmt->execute();
+                                $stmt->store_result();
+                                
+                                if($stmt->affected_rows >= 1){
+                                    $invalidRegistration = false;
+                                    $_SESSION['email'] = stripslashes(
                                                             htmlspecialchars(
-                                                                trim($firstName)));
-                                $_SESSION['lastName'] = stripslashes(
-                                                            htmlspecialchars(
-                                                                trim($lastName)));
+                                                                trim($email)));
+                                    $_SESSION['loggedIn'] = true;
+                                    $_SESSION['firstName'] = stripslashes(
+                                                                htmlspecialchars(
+                                                                    trim($firstName)));
+                                    $_SESSION['lastName'] = stripslashes(
+                                                                htmlspecialchars(
+                                                                    trim($lastName)));
+                                } else {
+                                    $invalidRegistration = true;
+                                }
+                                $stmt->close();
                             } else {
-                                $invalidRegistration = true;
+                                $valid_database = false;
                             }
-                            $stmt->close();
                         } else {
                             $valid_database = false;
                         }
-                    } else {
-                        $valid_database = false;
+                        $mysqli_con->close();
                     }
-                    $mysqli_con->close();
                 }
             }
-            if( !$invalidLogin || !$invalidRegistration ){
+            if( $loggingIn && !$invalidLogin || $registering && !$invalidRegistration ){
                 header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/");
                 exit(0);
             }
@@ -299,10 +301,16 @@
                         </div>
                     <?php
                     }
-                    if($invalidRegistration){
+                    if($duplicateEmail){
                     ?>
                         <div class="container">
-                            <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>We're sorry but we couldn't register you.</div>
+                            <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>An account with that email already exists!</div>
+                        </div>
+                    <?php
+                    } else if($invalidRegistration){
+                    ?>
+                        <div class="container">
+                            <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>We're sorry but we couldn't register you!</div>
                         </div>
                     <?php
                     }
