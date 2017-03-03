@@ -14,7 +14,7 @@
             $atLeastOne = false;
             foreach( $this->menuItems as $key => &$value ){
                 if(isset($_GET[$key])){
-                    $value = ($_GET[$key] == "1");
+                    $value = ($_GET[$key] === "1");
                     if($value && !$atLeastOne){
                         $atLeastOne = true;
                     }
@@ -36,12 +36,19 @@
                     $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
                     if(!mysqli_connect_errno()){
                         $valid_database = true;
-                        $sql = "SELECT food_item_name, food_item_cost, food_item_description, food_item_type_name FROM food_item join food_item_types on food_item.food_item_id=food_item_types.food_item_id join food_item_type on food_item_type.food_item_type_id=food_item_types.food_item_type_id WHERE food_item_type_name=?;";
+
+                        // I may want to name these tables something different, everything just blends into "food"
+                        $sql = "SELECT food_item_name, food_item_cost, food_item_description, food_image_url, food_item_type_name FROM food_item
+                                    join food_item_types on food_item.food_item_id=food_item_types.food_item_id
+                                    join food_item_type on food_item_type.food_item_type_id=food_item_types.food_item_type_id
+                                    join food_image on food_image.food_item_id=food_item.food_item_id
+                                    WHERE food_item_type_name=?;";
+                                    
                         if($stmt = $mysqli_con->prepare($sql)){
                             $stmt->bind_param('s',$key);
                             $stmt->execute();
                             $stmt->store_result();
-                            $stmt->bind_result($food_item_name, $food_item_cost, $food_item_description, $food_item_type_name);
+                            $stmt->bind_result($food_item_name, $food_item_cost, $food_item_description, $food_image_url, $food_item_type_name);
                             if($stmt->num_rows > 0){
                             ?>
                                 <div class="col-md-12">
@@ -58,7 +65,7 @@
                                             <div class="panel-body">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <img src="images/default_coffee.jpeg" class="img-thumbnail" alt="coffee">
+                                                        <img src="<?php echo($food_image_url); ?>" class="img-thumbnail" alt="coffee">
                                                     </div>
                                                     <div class="col-md-12 text-center">
                                                         <div class="row">
@@ -93,5 +100,3 @@
         }
     }
 ?>
-                <!--Start Coffee-->
-                
