@@ -12,7 +12,8 @@
 
 <link rel="stylesheet" href="css/glennsforestcafe.css">
 
-<link rel="shortcut icon" href="favicon.ico">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
 <script defer type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script defer type="text/javascript" src="javascripts/bootstrap.min.js"></script>
