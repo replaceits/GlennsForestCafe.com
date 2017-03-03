@@ -1,6 +1,9 @@
 <?php
     session_start();
 
+    include('php/functions/getMenuCounts.php');
+
+    $menuCount = getMenuCounts();
     $isOpen = false;
 
     // If its between Monday and Friday AND between 8:00 AM and 2:59 PM
@@ -11,6 +14,9 @@
             $isOpen = false;
         }
     }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,27 +124,27 @@
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <a href="menu/?sandwiches=1" class="list-group-item">
-                                            <span class="badge">15</span>
+                                            <span class="badge"><?php echo($menuCount["sandwiches"]); ?></span>
                                             Sandwiches
                                         </a>
                                         <a href="menu/?salads=1" class="list-group-item">
-                                            <span class="badge">4</span>
+                                            <span class="badge"><?php echo($menuCount["salads"]); ?></span>
                                             Salads
                                         </a>
                                         <a href="menu/?wraps=1" class="list-group-item">
-                                            <span class="badge">5</span>
+                                            <span class="badge"><?php echo($menuCount["wraps"]); ?></span>
                                             Wraps
                                         </a>
                                         <a href="menu/?sides=1" class="list-group-item">
-                                            <span class="badge">3</span>
+                                            <span class="badge"><?php echo($menuCount["sides"]); ?></span>
                                             Sides
                                         </a>
                                         <a href="menu/?drinks=1" class="list-group-item">
-                                            <span class="badge">6</span>
+                                            <span class="badge"><?php echo($menuCount["drinks"]); ?></span>
                                             Drinks
                                         </a>
                                         <a href="menu/?specials=1" class="list-group-item">
-                                            <span class="badge">1</span>
+                                            <span class="badge"><?php echo($menuCount["specials"]); ?></span>
                                             Specials
                                         </a>
                                     </ul>
