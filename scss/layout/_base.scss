@@ -1,9 +1,15 @@
+body{
+    padding-top: 100px;
+
+    background: rgb(76, 70, 52);
+}
+
 .full-background{
     position: fixed;
     top: 0;
     left: 0;
 
-    z-index: 0;
+    z-index: -1;
 
     min-width: 100vw;
     width: 100vw;
