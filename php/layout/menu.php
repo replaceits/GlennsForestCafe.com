@@ -29,6 +29,7 @@
 
         public function render(){
             $valid_database = false;
+            $atLeastOneItem = false;
             $database_key = file_get_contents('/api-keys/database.key');
 
             foreach( $this->menuItems as $key => $value ){
@@ -50,6 +51,7 @@
                             $stmt->store_result();
                             $stmt->bind_result($food_item_name, $food_item_cost, $food_item_description, $food_image_url, $food_item_type_name);
                             if($stmt->num_rows > 0){
+                                $atLeastOneItem = true;
                             ?>
                                 <div class="col-md-12">
                                     <div class="well"><?php echo(ucfirst($key)); ?></div>
@@ -96,6 +98,17 @@
                     }
                     $mysqli_con->close();
                 }
+            }
+            if(!$atLeastOneItem){
+            ?>
+                <div class="col-md-12">
+                    <div class="well text-center">
+                        Whoops, it looks like this category is empty.
+                        <br>
+                        <a href="menu/">Click here to see the full menu.</a>
+                    </div>
+                </div>
+            <?php
             }
         }
     }
