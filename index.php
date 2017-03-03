@@ -51,13 +51,10 @@
                                                 <img src="images/sandwich.jpg" class="img-thumbnail" alt="Sandwich">
                                             </div>
                                         </div>
-                                        <div class="spacer"></div>
-                                        <div class="row">
-                                            <div class="col-md-12 text-center"> 
-                                                <button class="btn btn-primary">Add to order</button> 
-                                            </div>
-                                        </div>
                                     </div>
+                                </div>
+                                <div class="panel-footer text-center">
+                                    <button class="btn btn-primary">Add to order</button>
                                 </div>
                             </div>
                         </div>
@@ -100,13 +97,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="spacer"></div>
-                                        <div class="row">
-                                            <div class="col-md-12 text-center"> 
-                                                <button class="btn btn-primary">Add to order</button> 
-                                            </div>
-                                        </div>
                                     </div>
+                                </div>
+                                <div class="panel-footer text-center">
+                                    <button class="btn btn-primary">Add to order</button>
                                 </div>
                             </div>
                         </div>
