@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    include('php/base/session.php');
 
     include('php/functions/getMenuCounts.php');
 

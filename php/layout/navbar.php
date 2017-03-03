@@ -10,7 +10,7 @@
         </button>
         <a class="navbar-brand" href="">Glenn's Forest Cafe</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation">
             <ul class="nav navbar-nav navbar-center">
                 <li><a href="about/"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;About<span class="sr-only">&nbsp;(current)</span></a></li>
                 <li><a href="location/"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;Location</a></li>
@@ -31,12 +31,34 @@
                     </ul>
                 </li>
             </ul>
-            <div class="navbar-right">
+            <div class="navbar-right" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li><a href="login/"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Login</a></li>
+                    <?php
+                        if($_SESSION['loggedIn']){
+                    ?>
+                        <li>
+                            <a href="orders/">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<?php echo($_SESSION['firstName'] . $_SESSION['lastName']); ?>
+                            </a>
+                        </li>
+                    <?php
+                        } else {
+                    ?>
+                        <li>
+                            <a href="login/">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Login/Register
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li><a href="cart/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart&nbsp;<span class="cart-header-items badge">0</span></a></li>
+                    <li>
+                        <a href="cart/">
+                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart&nbsp;&nbsp;<span class="cart-header-items badge">0</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -1,0 +1,22 @@
+<?php
+    session_start();
+    session_unset();
+    session_destroy();
+    if(isset($_SESSION['firstName'])){
+        unset($_SESSION['firstName']);
+    }
+    if(isset($_SESSION['lastName'])){
+        unset($_SESSION['lastName']);
+    }
+    if(isset($_SESSION['emailAddress'])){
+        unset($_SESSION['emailAddress']);
+    }
+    if(isset($_SESSION['cart'])){
+        unset($_SESSION['cart']);
+    }
+    if(isset($_SESSION['loggedIn'])){
+        unset($_SESSION['loggedIn']);
+    }
+    header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/login/");
+    exit(0);
+?>
