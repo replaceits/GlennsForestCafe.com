@@ -20,10 +20,14 @@
         </div>
 
         <div class="container">
-            <div class="row">
-                <?php
-                    $menu->render();
-                ?>
+            <div class="panel panel-default" style="background: rgba(255,255,255,1);">
+                <div class="panel-body">
+                    <div class="row">
+                        <?php
+                            $menu->render();
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
         <script type="text/javascript">

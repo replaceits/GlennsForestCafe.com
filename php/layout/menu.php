@@ -55,7 +55,7 @@
                         $previousType = $item->getType();
             ?>
                         <div class="col-md-12">
-                            <div class="well"><?php echo(ucfirst($item->getType())); ?></div>
+                            <div class="well"><h3 class="panel-title"><?php echo(ucfirst($item->getType())); ?></h3></div>
                         </div>
             <?php
                     }

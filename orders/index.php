@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="well">
-                        Past Orders
+                        <h3 class="panel-title">Past Orders</h3>
                     </div>
                 </div>
                 <div class="col-md-4">

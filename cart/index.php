@@ -16,7 +16,7 @@
                 <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Cart
+                            <h3 class="panel-title">Cart</h3>
                         </div>
                         <div class="panel-body">
                             <div class="container-fluid">
