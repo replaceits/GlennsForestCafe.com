@@ -26,7 +26,7 @@
     $email           = "";
     $firstName       = "";
     $lastName        = "";
-    $userID          = 0;
+    $userID          =  0;
 
     if( !$_SESSION['loggedIn'] ){
         if( isset($_POST['login']) ){
