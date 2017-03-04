@@ -6,7 +6,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <base href="http://replaceits.com/GlennsForestCafe.com/">
+        <base href="http://192.168.1.3/GlennsForestCafe.com/">
 
         <title>Glenn's Forest Cafe</title>
 

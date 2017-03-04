@@ -17,7 +17,7 @@
     $lastNameValid        = false;
     $invalidLogin         = false;
     $invalidRegistration  = false;
-    $valid_database       = true;
+    $valid_database       =  true;
     $duplicateEmail       = false;
 
     $password        = "";
@@ -26,6 +26,7 @@
     $email           = "";
     $firstName       = "";
     $lastName        = "";
+    $userID          = 0;
 
     if( !$_SESSION['loggedIn'] ){
         if( isset($_POST['login']) ){
@@ -59,13 +60,13 @@
                 if(!mysqli_connect_errno()){
                     $valid_database = true;
 
-                    $sql = "SELECT user_first_name, user_last_name, user_password_hash FROM users WHERE user_email = ?;";
+                    $sql = "SELECT user_id, user_first_name, user_last_name, user_password_hash FROM users WHERE user_email = ?;";
 
                     if($stmt = $mysqli_con->prepare($sql)){
                         $stmt->bind_param('s',$email);
                         $stmt->execute();
                         $stmt->store_result();
-                        $stmt->bind_result($firstName,$lastName,$password_hash);
+                        $stmt->bind_result($userID, $firstName,$lastName,$password_hash);
                         
                         if($stmt->num_rows == 1){
                             $stmt->fetch();
@@ -81,6 +82,7 @@
                                 $_SESSION['lastName'] = stripslashes(
                                                             htmlspecialchars(
                                                                 trim($lastName)));
+                                $_SESSION['admin'] = false;
                             } else {
                                 $invalidLogin = true;
                             }
@@ -94,6 +96,31 @@
                 } else {
                     $valid_database = false;
                 }
+
+                ////Check if user is an admin////
+                $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
+
+                if(!mysqli_connect_errno()){
+                    $valid_database = true;
+
+                    $sql = "SELECT user_admin_id FROM user_admins WHERE user_id = ?;";
+
+                    if($stmt = $mysqli_con->prepare($sql)){
+                        $stmt->bind_param('i',$userID);
+                        $stmt->execute();
+                        $stmt->store_result();
+                        $stmt->bind_result($firstName,$lastName,$password_hash);
+                        
+                        $_SESSION['admin'] = ($stmt->num_rows === 1);
+                        
+                        $stmt->close();
+                    } else {
+                        $valid_database = false;
+                    }
+                } else {
+                    $valid_database = false;
+                }
+
                 $mysqli_con->close();
             }
 
@@ -129,6 +156,7 @@
                 }
 
                 if( $emailValid && $passwordValid && $passwordConfirmValid && $lastNameValid && $firstNameValid ){
+                    ////Check to make sure the email isn't already in use////
                     $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
 
                     if(!mysqli_connect_errno()){
@@ -158,6 +186,7 @@
                     }
                     $mysqli_con->close();
 
+                    ////Add user to the database////
                     if( !$duplicateEmail ){
                         $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
 
@@ -183,6 +212,7 @@
                                     $_SESSION['lastName'] = stripslashes(
                                                                 htmlspecialchars(
                                                                     trim($lastName)));
+                                    $_SESSION['admin'] = false;
                                 } else {
                                     $invalidRegistration = true;
                                 }
@@ -358,7 +388,7 @@
                                 <div class="spacer"></div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <input type="submit" class="btn btn-primary" value="Login" name="login">
+                                        <button type="submit" class="btn btn-primary" name="login">Login</button>
                                     </div>
                                 </div>
                             </div>
@@ -435,7 +465,7 @@
                                 <div class="spacer"></div>
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <input type="submit" class="btn btn-primary" value="Register" name="register">
+                                        <button type="submit" class="btn btn-primary" name="register">Register</button>
                                     </div>
                                 </div>
                             </div>

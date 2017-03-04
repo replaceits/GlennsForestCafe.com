@@ -32,6 +32,19 @@
                 </li>
             </ul>
             <div class="navbar-right" role="navigation">
+            <?php
+                if($_SESSION['loggedIn'] && $_SESSION['admin']){
+            ?>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="cart/">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;Admin&nbsp;&nbsp;
+                            </a>
+                        </li>
+                    </ul>
+            <?php
+                }
+            ?>
                 <ul class="nav navbar-nav">
                     <?php
                         if($_SESSION['loggedIn']){

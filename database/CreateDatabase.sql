@@ -17,4 +17,8 @@ CREATE TABLE users( user_id int(5) NOT NULL AUTO_INCREMENT, user_first_name nvar
 CREATE TABLE user_admins( user_admin_id int(5) NOT NULL AUTO_INCREMENT, user_id int(5) NOT NULL, PRIMARY KEY(user_admin_id, user_id) );
 ALTER TABLE user_admins ADD CONSTRAINT FK_user_id_admin FOREIGN KEY ( user_id ) REFERENCES users( user_id ) ON DELETE CASCADE ON UPDATE CASCADE;
 
+CREATE TABLE orders(order_id int(5) NOT NULL AUTO_INCREMENT, order_date DATETIME NOT NULL, order_total_cost decimal(15,2) NOT NULL, order_taxes decimal(15,2) NOT NULL, PRIMARY KEY(order_id));
+
+CREATE TABLE user_orders(user_id int(5) NOT NULL, order_id int(5) NOT NULL, PRIMARY KEY(user_id, order_id));
+
 
