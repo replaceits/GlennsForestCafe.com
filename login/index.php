@@ -1,5 +1,6 @@
 <?php
-    include('../php/base/session.php');
+    require_once('../php/classes/cart.php');
+    require_once('../php/base/session.php');
 
     $database_key = file_get_contents('/api-keys/database.key');
 

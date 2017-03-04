@@ -67,8 +67,8 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="<?php echo($item->getImage()); ?>" class="img-thumbnail" alt="coffee">
+                                    <div class="col-md-12 text-center">
+                                        <img src="<?php echo($item->getImage()); ?>" class="img-thumbnail" alt="<?php echo($item->getName()); ?>">
                                     </div>
                                     <div class="col-md-12 text-center">
                                         <div class="row">
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="panel-footer text-center">
-                                <button class="btn btn-primary" id="<?php echo($item->getID()); ?>">Add to order</button>
+                                <button class="btn btn-primary add-to-order" name="<?php echo($item->getName()); ?>" id="<?php echo($item->getID()); ?>">Add to order</button>
                             </div>
                         </div>
                     </div>

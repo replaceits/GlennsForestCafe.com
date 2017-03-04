@@ -1,7 +1,7 @@
 <?php
-    include('php/base/session.php');
-
-    include('php/functions/getMenuCounts.php');
+    require_once('php/classes/cart.php');
+    require_once('php/base/session.php');
+    require_once('php/functions/getMenuCounts.php');
 
     $menuCount = getMenuCounts();
     $isOpen = false;
@@ -14,9 +14,6 @@
             $isOpen = false;
         }
     }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

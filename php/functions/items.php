@@ -5,7 +5,7 @@
         public static function getItemByID( $id ){
             $item = new Item();
             $database_key = file_get_contents('/api-keys/database.key');
-            $mysqli_con = new mysqli("localhost","http",$this->database_key,"glennsforestcafe");
+            $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
 
             if(!mysqli_connect_errno()){
                 $sql = "SELECT food_item.food_item_id, food_item_name, food_item_cost, food_item_description, food_image_url, food_item_type_name
@@ -16,14 +16,20 @@
                             WHERE food_item.food_item_id=?;";
                             
                 if($stmt = $mysqli_con->prepare($sql)){
-                    $stmt->bind_param('i',$type);
+                    $stmt->bind_param('i',$id);
                     $stmt->execute();
                     $stmt->store_result();
-                    $stmt->bind_result($food_item_name, $food_item_cost, $food_item_description, $food_image_url, $food_item_type_name);
+                    $stmt->bind_result($food_item_id, $food_item_name, $food_item_cost, $food_item_description, $food_image_url, $food_item_type_name);
 
                     if($stmt->num_rows > 0){
                         while( $stmt->fetch()){
                             $item = new Item();
+                            $item->setID($food_item_id);
+                            $item->setName($food_item_name);
+                            $item->setCost($food_item_cost);
+                            $item->setDescription($food_item_description);
+                            $item->setImage($food_image_url==null?"images/default_food.jpeg":$food_image_url);
+                            $item->setType($food_item_type_name);
                         }
                     }
                     $stmt->close();
@@ -58,7 +64,7 @@
         public static function getAllItems(){
             $items = array();
             $database_key = file_get_contents('/api-keys/database.key');
-            $mysqli_con = new mysqli("localhost","http",$this->database_key,"glennsforestcafe");
+            $mysqli_con = new mysqli("localhost","http",$database_key,"glennsforestcafe");
 
             if(!mysqli_connect_errno()){
                 $sql = "SELECT food_item.food_item_id, food_item_name, food_item_cost, food_item_description, food_image_url, food_item_type_name
@@ -80,7 +86,7 @@
                             $items[$food_item_name]->setName($food_item_name);
                             $items[$food_item_name]->setCost($food_item_cost);
                             $items[$food_item_name]->setDescription($food_item_description);
-                            $items[$food_item_name]->setImage($food_image_url==null?"images/default_tea.jpeg":$food_image_url);
+                            $items[$food_item_name]->setImage($food_image_url==null?"images/default_food.jpeg":$food_image_url);
                             $items[$food_item_name]->setType($food_item_type_name);
                         }
                     }
@@ -137,7 +143,7 @@
                             $items[$food_item_name]->setName($food_item_name);
                             $items[$food_item_name]->setCost($food_item_cost);
                             $items[$food_item_name]->setDescription($food_item_description);
-                            $items[$food_item_name]->setImage($food_image_url==null?"images/default_tea.jpeg":$food_image_url);
+                            $items[$food_item_name]->setImage($food_image_url==null?"images/default_food.jpeg":$food_image_url);
                             $items[$food_item_name]->setType($food_item_type_name);
                         }
                     }

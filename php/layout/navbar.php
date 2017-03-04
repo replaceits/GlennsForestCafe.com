@@ -69,7 +69,7 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="cart/">
-                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart&nbsp;&nbsp;<span class="cart-header-items badge">0</span>
+                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart&nbsp;&nbsp;<span class="cart-header-items badge"><?php echo($_SESSION['cart']->getCount()); ?></span>
                         </a>
                     </li>
                 </ul>

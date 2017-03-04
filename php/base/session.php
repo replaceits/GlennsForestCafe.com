@@ -6,6 +6,6 @@
 
     require_once(__DIR__ . '/../classes/cart.php');
     if( !isset($_SESSION['cart']) ){
-
+        $_SESSION['cart'] = new Cart();
     }
 ?>
