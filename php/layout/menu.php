@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="panel-footer text-center">
-                                <button class="btn btn-primary">Add to order</button>
+                                <button class="btn btn-primary" id="<?php echo($item->getID()); ?>">Add to order</button>
                             </div>
                         </div>
                     </div>
