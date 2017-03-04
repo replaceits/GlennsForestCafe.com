@@ -114,3 +114,35 @@ ALTER TABLE food_item_ingredient ADD CONSTRAINT FK_food_ingredient_id
     FOREIGN KEY ( ingredient_id ) 
     REFERENCES ingredient( ingredient_id ) 
     ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE order_item_addition(
+    order_item_id int(5) NOT NULL,
+    ingredient_id int(5) NOT NULL,
+    PRIMARY KEY(order_item_id, ingredient_id)
+);
+
+ALTER TABLE order_item_addition ADD CONSTRAINT FK_order_item_order_add 
+    FOREIGN KEY ( order_item_id ) 
+    REFERENCES order_item( order_item_id ) 
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE order_item_addition ADD CONSTRAINT FK_order_item_ingredient_add 
+    FOREIGN KEY ( ingredient_id ) 
+    REFERENCES ingredient( ingredient_id ) 
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE order_item_subtraction(
+    order_item_id int(5) NOT NULL,
+    ingredient_id int(5) NOT NULL,
+    PRIMARY KEY(order_item_id, ingredient_id)
+);
+
+ALTER TABLE order_item_subtraction ADD CONSTRAINT FK_order_item_order_sub 
+    FOREIGN KEY ( order_item_id ) 
+    REFERENCES order_item( order_item_id ) 
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE order_item_subtraction ADD CONSTRAINT FK_order_item_ingredient_sub 
+    FOREIGN KEY ( ingredient_id ) 
+    REFERENCES ingredient( ingredient_id ) 
+    ON DELETE CASCADE ON UPDATE CASCADE;
